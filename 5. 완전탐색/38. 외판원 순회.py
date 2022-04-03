@@ -2,7 +2,6 @@ import sys
 input = sys.stdin.readline
 
 
-
 # 시작도시번호, 다음도시번호, 비용, 방문 도시
 def dfs(start, end, value, visited):
     global cost
