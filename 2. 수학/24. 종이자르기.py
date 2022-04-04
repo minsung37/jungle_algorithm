@@ -16,7 +16,7 @@ for i in range(n):
 width.sort()
 height.sort()
 
-# 0 ~ 가장 작은값 자른 길이
+# 잘린 종이의 가로와 세로의 길이를 담을 배열
 cut_width = [width[0]]
 cut_height = [height[0]]
 
