@@ -1,11 +1,10 @@
 import sys
 input = sys.stdin.readline
 
-# M: 사대의수, N: 동물의수, L: 사정거리
 M, N, L = map(int, input().split())
 spot = sorted(list(map(int, input().split())))
 animal = []
-for i in range(N):
+for _ in range(N):
     temp = list(map(int, input().split()))
     if temp[1] <= L:
         animal.append(temp)
@@ -29,13 +28,12 @@ for a, b in animal:
         if start == 0:
             if abs(spot[start] - a) + b <= L:
                 hunt = hunt + 1
-        # 끝점
+        # 오른쪽 끝 사대 보다 옆에 있는 경우
         elif start == len(spot):
-            if abs(spot[start - 1] - a) + b <= L:
+            if abs(spot[start - 1] - a):
                 hunt = hunt + 1
         # 사이
         else:
             if min(abs(spot[start - 1] - a), abs(spot[start] - a)) + b <= L:
                 hunt = hunt + 1
-# 정답출력
 print(hunt)

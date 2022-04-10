@@ -1,52 +1,60 @@
+from typing import Any
 import sys
-
-
-class LinkedList:
-    def __init__(self, val, next=None):
-        self.val = val
-        self.next = next
+input = sys.stdin.readline
 
 
 class Stack:
-    def __init__(self):
-        self.size = 0
-        self.last = None
+    # 스택초기화
+    def __init__(self, capacity: int = 99999) -> None:
+        self.stk = [None] * capacity  # 스택 본체
+        self.capacity = capacity  # 스택의 크기
+        self.ptr = 0  # 스택 포인터
+        pass
 
-    def push(self, val):
-        self.last = LinkedList(val, self.last)
-        self.size += 1
+    # 스택이 가득 차 있는지 판단
+    def is_full(self) -> bool:
+        return self.ptr >= self.capacity
 
-    def pop(self):
-        if self.size == 0:
+    # 스택에 value를 푸시(데이터를 넣음)
+    def push(self, value: Any) -> None:
+        self.stk[self.ptr] = value
+        self.ptr = self.ptr + 1
+
+    # 스택이 비어 있는지 판단
+    def is_empty(self) -> bool:
+        if self.ptr <= 0:
+            return 1
+        return 0
+
+    # 스택에서 데이터를 팝(꼭대기 데이터를 꺼냄)
+    def pop(self) -> int:
+        if self.is_empty():  # 스택이 비어 있음
+            return -1  # 예외처리 발생
+        self.ptr = self.ptr - 1
+        return self.stk[self.ptr]
+
+    # 스택의 길이 확인
+    def size(self) -> int:
+        return self.ptr
+
+    # 스택에서 데이터를 피크(꼭대기 데이터를 들여다봄)
+    def top(self) -> Any:
+        if self.is_empty():  # 스택이 비어 있음
             return -1
-
-        self.size -= 1
-        val = self.last.val
-        self.last = self.last.next
-        return val
-
-    def empty(self):
-        return 1 if self.size == 0 else 0
-
-    def top(self):
-        if self.last is None:
-            return -1
-        return self.last.val
+        return self.stk[self.ptr - 1]
 
 
-N = int(sys.stdin.readline())
-
+n = int(input())
 stack = Stack()
-for _ in range(N):
-    query = sys.stdin.readline().split()
-    if query[0] == "push":
-        val = int(query[1])
-        stack.push(val)
-    elif query[0] == "pop":
+for _ in range(n):
+    commend = input().split()
+    if commend[0] == "push":
+        stack.push(int(commend[1]))
+    elif commend[0] == "pop":
         print(stack.pop())
-    elif query[0] == "size":
-        print(stack.size)
-    elif query[0] == "empty":
-        print(stack.empty())
-    elif query[0] == "top":
+    elif commend[0] == "size":
+        print(stack.size())
+    elif commend[0] == "empty":
+        print(stack.is_empty())
+    elif commend[0] == "top":
         print(stack.top())
