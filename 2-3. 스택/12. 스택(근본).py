@@ -47,14 +47,14 @@ class Stack:
 n = int(input())
 stack = Stack()
 for _ in range(n):
-    commend = input().split()
-    if commend[0] == "push":
-        stack.push(int(commend[1]))
-    elif commend[0] == "pop":
+    commend, *v = input().split()
+    if commend == "push":
+        stack.push(int(v[0]))
+    elif commend == "pop":
         print(stack.pop())
-    elif commend[0] == "size":
+    elif commend == "size":
         print(stack.size())
-    elif commend[0] == "empty":
+    elif commend == "empty":
         print(stack.is_empty())
-    elif commend[0] == "top":
+    elif commend == "top":
         print(stack.top())

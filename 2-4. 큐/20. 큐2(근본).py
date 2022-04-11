@@ -1,67 +1,53 @@
-import sys
-
-
-class LinkedList:
-    def __init__(self, val, next=None):
-        self.val = val
-        self.next = next
+from sys import stdin, stdout
 
 
 class Queue:
-    def __init__(self):
-        self.size = 0
-        self.back = self.front = None
+    def __init__(self, maxsize):
+        self._data = [0] * maxsize
+        self._front = 0
+        self._rear = 0
 
-    def push(self, val):
-        if self.front is None:
-            self.back = self.front = LinkedList(val)
-            self.size = 1
-            return
-
-        self.back.next = LinkedList(val)
-        self.back = self.back.next
-        self.size += 1
-        return
+    def push(self, n):
+        self._data[self._rear] = n
+        self._rear += 1
 
     def pop(self):
-        if self.front is None:
-            return -1
-        val = self.front.val
-        self.front = self.front.next
-        if self.front is None:
-            self.back = self.front
-        self.size -= 1
-        return val
+        if not self.empty():
+            p = self._data[self._front]
+            self._front += 1
+            return p
+        return -1
+
+    def size(self):
+        return self._rear - self._front
 
     def empty(self):
-        return 1 if self.size == 0 else 0
+        return self.size() == 0
+
+    def front(self):
+        if not self.empty():
+            return self._data[self._front]
+        return -1
+
+    def back(self):
+        if not self.empty():
+            return self._data[self._rear - 1]
+        return -1
 
 
-que = Queue()
-
-N = int(sys.stdin.readline())
+N = int(stdin.readline())
+queue = Queue(N)
 for _ in range(N):
-    query = sys.stdin.readline().rstrip().split()
-    if query[0] == "push":
-        que.push(int(query[1]))
-
-    elif query[0] == "pop":
-        print(que.pop())
-
-    elif query[0] == "size":
-        print(que.size)
-
-    elif query[0] == "empty":
-        print(que.empty())
-
-    elif query[0] == "front":
-        if que.front is not None:
-            print(que.front.val)
-        else:
-            print(-1)
-
-    elif query[0] == "back":
-        if que.back is not None:
-            print(que.back.val)
-        else:
-            print(-1)
+    cmd, *v = stdin.readline().split()
+    if cmd == 'push':
+        queue.push(int(v[0]))
+    elif cmd == 'pop':
+        stdout.write(str(queue.pop()) + '\n')
+    elif cmd == 'size':
+        stdout.write(str(queue.size()) + '\n')
+    elif cmd == 'empty':
+        stdout.write(str(1 if queue.empty() else 0) + '\n')
+    elif cmd == 'front':
+        stdout.write(str(queue.front()) + '\n')
+    elif cmd == 'back':
+        stdout.write(str(queue.back()) + '\n')
