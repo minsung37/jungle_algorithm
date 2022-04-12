@@ -30,7 +30,7 @@ for a, b in animal:
                 hunt = hunt + 1
         # 오른쪽 끝 사대 보다 옆에 있는 경우
         elif start == len(spot):
-            if abs(spot[start - 1] - a):
+            if abs(spot[start - 1] - a) + b <= L:
                 hunt = hunt + 1
         # 사이
         else:

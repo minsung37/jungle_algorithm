@@ -1,4 +1,4 @@
-# 용액 특성갑 입력받고 정렬하기
+# 용액 특성값 입력받고 정렬하기
 n = int(input())
 solution = list(map(int, input().split()))
 solution.sort()
@@ -25,4 +25,4 @@ while left < right:
     else:
         right = right - 1
 # 결과출력
-print(result[0], result[1])
+print(*result)
