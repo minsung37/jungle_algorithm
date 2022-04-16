@@ -21,7 +21,6 @@ def dfs(v):
         if not visited[i]:
             result[i] = v
             dfs(i)
-    return
 
 
 # 정답출력
