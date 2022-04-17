@@ -1,16 +1,11 @@
-# 정점의수, 장소점보 - 1: 실내, 0: 실외
-n = int(input())
-place = list(input())
+import sys
+sys.setrecursionlimit(10 ** 9)
+input = sys.stdin.readline
 
-# 방문체크, 인접리스트
-visited = [0] * (n + 1)
-graph = [[] for _ in range(n + 1)]
-for _ in range(n - 1):
-    a, b = map(int, input().split())
-    graph[a].append(b)
-    graph[b].append(a)
-
-# 방문횟수 담을 변수
-count = 0
-
+# 1. 실외 점을 기준으로 인접해있는 실내 노드 개수를 count한다.
+# 2. 실외 점을 중간에 놓고 실내 점 n개가 붙어있을 때 갈 수 있는 경로의 수는
+#    - n * 1(중간 실외 점 선택) * (n - 1) = n * (n - 1)에 해당.
+# 3. 실외 노드끼리 연결되는 경우는
+#    - 실외끼리 인접 노드로 연결될 때
+#    - 중간에 실내 노드를 끼고 연결할 때. 이를 분리해서 생각.
 
