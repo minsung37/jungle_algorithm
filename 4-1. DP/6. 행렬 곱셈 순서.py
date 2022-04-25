@@ -1,17 +1,18 @@
+import sys
+input = sys.stdin.readline
+
 # 행렬 입력받기
 n = int(input())
 matrix = [list(map(int, input().split())) for _ in range(n)]
 
 # DP
 dp = [[0] * n for _ in range(n)]
-for i in range(1, n):  # i는 간격에 따른 대각선 줄을 의미한다.
-    for j in range(n - i):  # j는 대각선의 항목들
-        x = i + j
-        dp[j][x] = 2 ** 32
-        for k in range(j, x):  # 나올 수 있는 모든 최솟값을 구한다.
-            print(j, k)
-            dp[j][x] = min(dp[j][x], dp[j][k] + dp[k + 1][x] + matrix[j][0] * matrix[k][1] * matrix[x][1])
-        for z in dp:
-            print(*z)
-        print()
+for diagonal_row in range(1, n):  # 대각라인 순서
+    for row in range(n - diagonal_row):  # 먼저곱하는 행렬
+        column = diagonal_row + row  # 뒤에곱하는 행렬, column과 row사이의 차이 1, 2, 3... 순으로 커짐
+        dp[row][column] = 2 ** 32
+        # 행렬곱해서 작은거 선택하기
+        for k in range(row, column):
+            dp[row][column] = min(dp[row][column],
+                                  dp[row][k] + dp[k + 1][column] + matrix[row][0] * matrix[k][1] * matrix[column][1])
 print(dp[0][n - 1])
